@@ -1,0 +1,62 @@
+# flavorizr:
+# ide: "vscode"
+# app:
+#   android:
+#     flavorDimensions: "flavor-type"
+#   ios:
+
+flavors:
+  dev:
+    app:
+      name: "Development Flavor"
+
+    android:
+      applicationId: "com.dev.flavorsdemo"
+      resValues:
+        google_maps_api_key:
+          type: "string"
+          value: "AIza-DEV-KEY-HERE"
+
+    ios:
+      bundleId: "com.dev.flavorsdemo"
+      buildSettings:
+        # Development Team is visible in the apple developer portal
+        DEVELOPMENT_TEAM: YOURDEVTEAMID
+        PROVISIONING_PROFILE_SPECIFIER: "Dev-ProvisioningProfile"
+        GOOGLE_MAPS_API_KEY: "AIza-DEV-KEY-HERE"
+
+  staging:
+    app:
+      name: "Staging App"
+
+    android:
+      applicationId: "com.staging.flavorsdemo"
+      resValues:
+        google_maps_api_key:
+          type: "string"
+          value: "AIza-STAGING-KEY-HERE"
+
+    ios:
+      bundleId: "com.staging.flavorsdemo"
+      buildSettings:
+        DEVELOPMENT_TEAM: YOURSTAGINGTEAMID
+        PROVISIONING_PROFILE_SPECIFIER: "Staging-ProvisioningProfile"
+        GOOGLE_MAPS_API_KEY: "AIza-STAGING-KEY-HERE"
+
+  prod:
+    app:
+      name: "Production App"
+
+    android:
+      applicationId: "com.production.flavorsdemo"
+      resValues:
+        google_maps_api_key:
+          type: "string"
+          value: "AIza-PROD-KEY-HERE"
+
+    ios:
+      bundleId: "com.production.flavorsdemo"
+      buildSettings:
+        DEVELOPMENT_TEAM: YOURPRODUCTIONTEAMID
+        PROVISIONING_PROFILE_SPECIFIER: "Production-ProvisioningProfile"
+        GOOGLE_MAPS_API_KEY: "AIza-PROD-KEY-HERE"

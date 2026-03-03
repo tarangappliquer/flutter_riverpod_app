@@ -1,7 +1,7 @@
 name: flutter_riverpod_app
 description: "A new Flutter project."
 
-publish_to: 'none'
+publish_to: "none"
 
 version: 1.0.0+1
 
@@ -32,14 +32,14 @@ dev_dependencies:
 
   flutter_lints: ^6.0.0
   build_runner: ^2.11.1
+  flutter_flavorizr: ^2.4.2
   freezed: ^3.2.5
   json_serializable: ^6.13.0
   riverpod_generator: ^4.0.3
 
-
 flutter:
-
   uses-material-design: true
+  default-flavor: dev
 
   # To add assets to your application, add an assets section, like this:
   # assets:

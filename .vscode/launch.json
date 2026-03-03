@@ -4,7 +4,13 @@
         {
             "name": "flutter_riverpod_app",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "args": [
+                "-t",
+                "./lib/main_dev.dart",
+                "--dart-define-from-file",
+                ".env.dev"
+            ]
         },
         {
             "name": "flutter_riverpod_app (profile mode)",
