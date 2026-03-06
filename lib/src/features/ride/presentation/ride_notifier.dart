@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:google_polyline_algorithm/google_polyline_algorithm.dart';
 import 'package:mappls_gl/mappls_gl.dart';
 import 'package:mappls_place_widget/mappls_place_widget.dart';
@@ -82,7 +82,9 @@ class RideController extends _$RideController {
         _fetchRoute();
       }
     } catch (e) {
-      debugPrint("Search error: $e");
+      if (kDebugMode) {
+        debugPrint("Search error: $e");
+      }
     }
   }
 
@@ -106,7 +108,9 @@ class RideController extends _$RideController {
         }
       }
     } catch (e) {
-      debugPrint("Routing error: $e");
+      if (kDebugMode) {
+        debugPrint("Routing error: $e");
+      }
     }
   }
 }

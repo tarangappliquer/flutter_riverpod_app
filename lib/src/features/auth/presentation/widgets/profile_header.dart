@@ -11,35 +11,44 @@ class ProfileHeader extends ConsumerWidget {
 
     if (user == null) return const SizedBox.shrink();
 
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Row(
-        children: [
-          CircleAvatar(
-            radius: 30,
-            backgroundImage: user.image != null
-                ? NetworkImage(user.image!)
-                : null,
-            child: user.image == null ? const Icon(Icons.person) : null,
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '${user.firstName ?? ''} ${user.lastName ?? ''}',
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            children: [
+              CircleAvatar(
+                radius: 30,
+                backgroundImage: user.image != null
+                    ? NetworkImage(user.image!)
+                    : null,
+                child: user.image == null ? const Icon(Icons.person) : null,
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${user.firstName ?? ''} ${user.lastName ?? ''}',
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      user.email,
+                      style: const TextStyle(color: Colors.grey),
+                    ),
+                  ],
                 ),
-                Text(user.email, style: const TextStyle(color: Colors.grey)),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+
+        const Divider(),
+      ],
     );
   }
 }

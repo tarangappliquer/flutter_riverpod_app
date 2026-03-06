@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -16,43 +17,52 @@ class RideBookingPage extends HookConsumerWidget {
 
     // Sync Map UI with RideState
     useEffect(() {
+      bool isMounted = true;
       final controller = mapController.value;
-      if (controller == null) return;
 
-      void updateMap() async {
-        await controller.clearSymbols();
-        await controller.clearLines();
+      if (controller != null) {
+        Future(() async {
+          try {
+            await controller.clearSymbols();
+            await controller.clearLines();
 
-        if (rideState.pickup != null) {
-          await controller.addSymbol(
-            SymbolOptions(
-              geometry: rideState.pickup!,
-              iconImage: "origin_marker",
-            ),
-          );
-        }
-        if (rideState.destination != null) {
-          await controller.addSymbol(
-            SymbolOptions(
-              geometry: rideState.destination!,
-              iconImage: "destination_marker",
-            ),
-          );
-        }
-        if (rideState.polyline.isNotEmpty) {
-          await controller.addLine(
-            LineOptions(
-              geometry: rideState.polyline,
-              lineColor: "#3bb2d0",
-              lineWidth: 5,
-            ),
-          );
-          _fitRoute(controller, rideState.polyline);
-        }
+            if (!isMounted) return;
+
+            if (rideState.pickup != null) {
+              await controller.addSymbol(
+                SymbolOptions(
+                  geometry: rideState.pickup!,
+                  // iconImage: "origin_marker",
+                ),
+              );
+            }
+            if (rideState.destination != null) {
+              await controller.addSymbol(
+                SymbolOptions(
+                  geometry: rideState.destination!,
+                  // iconImage: "destination_marker",
+                ),
+              );
+            }
+            if (rideState.polyline.isNotEmpty) {
+              await controller.addLine(
+                LineOptions(
+                  geometry: rideState.polyline,
+                  lineColor: "#3bb2d0",
+                  lineWidth: 5,
+                ),
+              );
+              _fitRoute(controller, rideState.polyline);
+            }
+          } catch (e) {
+            if (kDebugMode) {
+              debugPrint("Map update error: $e");
+            }
+          }
+        });
       }
 
-      updateMap();
-      return null;
+      return () => isMounted = false; // Cleanup function sets flag to false
     }, [rideState]);
 
     return Scaffold(

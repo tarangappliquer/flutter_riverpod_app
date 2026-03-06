@@ -32,4 +32,9 @@ class AuthRepository {
       'refreshToken': res.data['refreshToken'],
     };
   }
+
+  Future<User> getCurrentUser() async {
+    final res = await _dio.get('/auth/me');
+    return User.fromJson(res.data);
+  }
 }

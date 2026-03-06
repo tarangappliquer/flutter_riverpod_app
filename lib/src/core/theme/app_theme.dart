@@ -65,64 +65,67 @@ class AppTheme {
 
     showModalBottomSheet(
       context: context,
+      useSafeArea: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (context) => SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const ProfileHeader(),
-            const Divider(),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Appearance',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
-
-            RadioGroup<ThemeMode>(
-              groupValue: currentTheme,
-              onChanged: (val) {
-                if (val != null) {
-                  ref.read(themeControllerProvider.notifier).setTheme(val);
-                  Navigator.pop(context);
-                }
-              },
-              child: Column(
-                children: [
-                  _themeTile(
-                    'System Default',
-                    Icons.brightness_auto,
-                    ThemeMode.system,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const ProfileHeader(),
+              // const Divider(),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Appearance',
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  _themeTile('Light Mode', Icons.light_mode, ThemeMode.light),
-                  _themeTile('Dark Mode', Icons.dark_mode, ThemeMode.dark),
-                ],
-              ),
-            ),
-
-            const Divider(),
-            ListTile(
-              leading: const Icon(Icons.logout, color: Colors.redAccent),
-              title: const Text(
-                'Logout',
-                style: TextStyle(
-                  color: Colors.redAccent,
-                  fontWeight: FontWeight.bold,
                 ),
               ),
-              onTap: () {
-                Navigator.pop(context);
-                ref.read(authControllerProvider.notifier).logout();
-              },
-            ),
-            const SizedBox(height: 8),
-          ],
+
+              RadioGroup<ThemeMode>(
+                groupValue: currentTheme,
+                onChanged: (val) {
+                  if (val != null) {
+                    ref.read(themeControllerProvider.notifier).setTheme(val);
+                    Navigator.pop(context);
+                  }
+                },
+                child: Column(
+                  children: [
+                    _themeTile(
+                      'System Default',
+                      Icons.brightness_auto,
+                      ThemeMode.system,
+                    ),
+                    _themeTile('Light Mode', Icons.light_mode, ThemeMode.light),
+                    _themeTile('Dark Mode', Icons.dark_mode, ThemeMode.dark),
+                  ],
+                ),
+              ),
+
+              const Divider(),
+              ListTile(
+                leading: const Icon(Icons.logout, color: Colors.redAccent),
+                title: const Text(
+                  'Logout',
+                  style: TextStyle(
+                    color: Colors.redAccent,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                  ref.read(authControllerProvider.notifier).logout();
+                },
+              ),
+              const SizedBox(height: 8),
+            ],
+          ),
         ),
       ),
     );
@@ -133,8 +136,6 @@ class AppTheme {
       title: Text(title),
       secondary: Icon(icon),
       value: value,
-      // No groupValue or onChanged needed here;
-      // the RadioGroup parent provides them via context.
     );
   }
 }

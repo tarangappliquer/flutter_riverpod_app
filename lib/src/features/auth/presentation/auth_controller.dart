@@ -21,6 +21,12 @@ class AuthController extends _$AuthController {
     // Check ref.mounted to ensure provider is still active after async call
     if (access != null && refresh != null && ref.mounted) {
       state = state.copyWith(accessToken: access, refreshToken: refresh);
+
+      final authResult = await ref
+          .read(authRepositoryProvider)
+          .getCurrentUser();
+
+      state = state.copyWith(user: authResult);
     }
   }
 
