@@ -25,6 +25,14 @@ dependencies:
   dio: ^5.9.2
   flutter_secure_storage: ^10.0.0
   go_router: ^17.1.0
+  pretty_dio_logger: ^1.4.0
+  mappls_gl: ^2.0.3
+  mappls_place_widget: ^2.0.0
+  google_polyline_algorithm: ^3.1.0
+  mappls_direction_plugin: ^2.0.0
+  mappls_nearby_plugin: ^2.0.0
+  permission_handler: ^12.0.1
+  geolocator: ^14.0.2
 
 dev_dependencies:
   flutter_test:

@@ -17,6 +17,20 @@ subprojects {
 }
 subprojects {
     project.evaluationDependsOn(":app")
+
+    // Force every Java compilation task to 17
+    tasks.withType<JavaCompile>().configureEach {
+        sourceCompatibility = JavaVersion.VERSION_17.toString()
+        targetCompatibility = JavaVersion.VERSION_17.toString()
+    }
+
+    // Force every Kotlin compilation task to 17
+    // Using this 'tasks.withType' approach avoids the 'final languageVersion' error
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+        }
+    }
 }
 
 tasks.register<Delete>("clean") {

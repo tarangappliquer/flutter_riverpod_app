@@ -25,4 +25,38 @@ android.apply {
             resValue(type = "string", name = "google_maps_api_key", value = "AIza-PROD-KEY-HERE")
         }
     }
+
+    applicationVariants.all {
+        val variant = this
+        val flavorName = productFlavors[0].name
+
+        // Only run the copy logic if the current Gradle task matches this variant
+        if (project.gradle.startParameter.taskRequests.any { it.args.any { arg -> arg.contains(variant.name, ignoreCase = true) } }) {
+            
+            println("🚀 CURRENT SELECTED FLAVOR: $flavorName")
+            
+            project.copy {
+                from("src/$flavorName/")
+                include("*.a.olf", "*.a.conf")
+                into(".") 
+                
+                eachFile {
+                    println("🚀 ACTIVE FLAVOR DETECTED: $flavorName")
+                    println("✅ Mappls Config: Copying $name to android/app root")
+                }
+            }
+        }
+        // outputs.all {
+        //     project.copy {
+        //         from("src/$flavorName/")
+        //         include("*.a.olf", "*.a.conf")
+        //         into(".") 
+                
+        //         // Add this to verify in terminal
+        //         eachFile {
+        //             println("✅ Mappls Config: Copying $name from src/$flavorName to android/app root")
+        //         }
+        //     }
+        // }
+    }
 }
